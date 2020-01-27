@@ -1,0 +1,11 @@
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\bin\Debug\stereogram.exe.config
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\bin\Debug\stereogram.exe
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\bin\Debug\stereogram.pdb
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.csprojAssemblyReference.cache
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.FormImage.resources
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.FormMain.resources
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.Properties.Resources.resources
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.csproj.GenerateResource.cache
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.exe
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.pdb
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.FormDraw.resources
