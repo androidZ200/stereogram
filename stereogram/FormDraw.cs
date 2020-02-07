@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace stereogram
@@ -31,9 +25,9 @@ namespace stereogram
         }
         Point Convert(Point pixel)
         {
-            double k = Math.Min(pictureBox.Height / 720.0, pictureBox.Width / 1280.0);
-            int paddingTop = (int)((pictureBox.Height - 720 * k) / 2);
-            int paddingLeft = (int)((pictureBox.Width - 1280 * k) / 2);
+            double k = Math.Min(pictureBox.Height * 1.0 / image.Height, pictureBox.Width * 1.0 / image.Width);
+            int paddingTop = (int)((pictureBox.Height - image.Height * k) / 2);
+            int paddingLeft = (int)((pictureBox.Width - image.Width * k) / 2);
             pixel.X -= paddingLeft;
             pixel.Y -= paddingTop;
             pixel.X = (int)(pixel.X / k);
@@ -45,7 +39,7 @@ namespace stereogram
         {
             InitializeComponent();
             this.form = form;
-            image = new Bitmap(1280, 720);
+            image = new Bitmap(form.Width - form.CycleWidth, form.Height);
             g = Graphics.FromImage(image);
             g.Clear(Color.Black);
             pictureBox.Image = image;

@@ -31,6 +31,7 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.buttonCopy = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,11 +64,27 @@
             // 
             this.saveFileDialog1.Filter = "Image Files(*.JPG)|*.JPG";
             // 
+            // buttonCopy
+            // 
+            this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCopy.BackColor = System.Drawing.Color.Transparent;
+            this.buttonCopy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCopy.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonCopy.Location = new System.Drawing.Point(65, 437);
+            this.buttonCopy.Name = "buttonCopy";
+            this.buttonCopy.Size = new System.Drawing.Size(54, 29);
+            this.buttonCopy.TabIndex = 2;
+            this.buttonCopy.Text = "copy";
+            this.buttonCopy.UseVisualStyleBackColor = false;
+            this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
+            // 
             // FormImage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 471);
+            this.Controls.Add(this.buttonCopy);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.pictureBox);
             this.Name = "FormImage";
@@ -82,5 +99,6 @@
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button buttonCopy;
     }
 }

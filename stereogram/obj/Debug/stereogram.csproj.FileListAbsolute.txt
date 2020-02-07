@@ -9,3 +9,4 @@ E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.csp
 E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.exe
 E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.pdb
 E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.FormDraw.resources
+E:\YandexDisk\YandexDisk\Projects\stereogram\stereogram\obj\Debug\stereogram.FormSettings.resources

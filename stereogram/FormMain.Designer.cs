@@ -35,6 +35,7 @@
             this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonCreate = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.buttonSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBackground)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
             this.SuspendLayout();
@@ -104,6 +105,16 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Image Files(*.JPG)|*.JPG";
             // 
+            // buttonSettings
+            // 
+            this.buttonSettings.Location = new System.Drawing.Point(12, 175);
+            this.buttonSettings.Name = "buttonSettings";
+            this.buttonSettings.Size = new System.Drawing.Size(178, 28);
+            this.buttonSettings.TabIndex = 2;
+            this.buttonSettings.Text = "Settings";
+            this.buttonSettings.UseVisualStyleBackColor = true;
+            this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +123,7 @@
             this.Controls.Add(this.buttonCreate);
             this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.buttonDraw);
+            this.Controls.Add(this.buttonSettings);
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.pictureBoxImage);
             this.Controls.Add(this.pictureBoxBackground);
@@ -133,6 +145,7 @@
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.Button buttonCreate;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button buttonSettings;
     }
 }
 

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace stereogram
@@ -15,29 +9,32 @@ namespace stereogram
         Random rand = new Random();
         Bitmap background;
         Bitmap imageBW;
+        public new int Width = 1280;
+        public new int Height = 720;
+        public int CycleWidth = 128;
 
-        private void GenerateBackground(int width, int height, int cycle)
+        private void GenerateBackground()
         {
-            background = new Bitmap(width, height);
+            background = new Bitmap(Width, Height);
             Graphics g = Graphics.FromImage(background);
 
-            for(int i = 0; i < 800; i++)
+            for (int i = 0; i < 800; i++)
             {
-                Bitmap figure = GenerateFigure(cycle);
-                Point beg = new Point(rand.Next(-cycle, -cycle / 2), rand.Next(height));
-                while(beg.X < width)
+                Bitmap figure = GenerateFigure();
+                Point beg = new Point(rand.Next(-CycleWidth * 2, -CycleWidth), rand.Next(-100, Height));
+                while (beg.X < Width)
                 {
                     g.DrawImage(figure, beg);
-                    beg.X += cycle;
+                    beg.X += CycleWidth;
                 }
             }
         }
-        private Bitmap GenerateFigure(int maxSize)
+        private Bitmap GenerateFigure()
         {
-            Bitmap bmp = new Bitmap(rand.Next(10, maxSize), rand.Next(10, maxSize));
+            Bitmap bmp = new Bitmap(rand.Next(20, CycleWidth + 50), rand.Next(20, CycleWidth + 50));
             Graphics g = Graphics.FromImage(bmp);
             Pen p = new Pen(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)), rand.Next(5, 15));
-            if(rand.Next(2) == 0)
+            if (rand.Next(2) == 0)
                 g.DrawLine(p, 0, rand.Next(0, bmp.Height), bmp.Width, rand.Next(0, bmp.Height));
             else
                 g.DrawLine(p, rand.Next(0, bmp.Width), 0, rand.Next(0, bmp.Width), bmp.Height);
@@ -48,14 +45,21 @@ namespace stereogram
             imageBW = image;
             pictureBoxImage.Image = imageBW;
         }
-                     
+        public void resize()
+        {
+            background = null;
+            imageBW = null;
+            pictureBoxBackground.Image = null;
+            pictureBoxImage.Image = null;
+        }
+
         public FormMain()
         {
             InitializeComponent();
         }
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            GenerateBackground(1280, 720, 128);
+            GenerateBackground();
             pictureBoxBackground.Image = background;
         }
         private void buttonDraw_Click(object sender, EventArgs e)
@@ -67,17 +71,23 @@ namespace stereogram
         }
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            if(openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (imageBW == null) imageBW = new Bitmap(1280, 720);
+                if (imageBW == null) imageBW = new Bitmap(Width - CycleWidth, Height);
                 string path = openFileDialog1.FileName;
                 Bitmap t = (Bitmap)Bitmap.FromFile(path);
-                double k = Math.Min(720.0 / t.Height, 1280.0 / t.Width);
-                int paddingTop = (int)((720 - t.Height * k) / 2);
-                int paddingLeft = (int)((1280.0 - t.Width * k) / 2);
+                double k = Math.Min(imageBW.Height * 1.0 / t.Height, imageBW.Width * 1.0 / t.Width);
+                int paddingTop = (int)((imageBW.Height - t.Height * k) / 2);
+                int paddingLeft = (int)((imageBW.Width - t.Width * k) / 2);
                 Graphics g = Graphics.FromImage(imageBW);
                 g.Clear(Color.Black);
                 g.DrawImage(new Bitmap(t, (int)(t.Width * k), (int)(t.Height * k)), paddingLeft, paddingTop);
+                for (int y = 0; y < imageBW.Height; y++)
+                    for (int x = 0; x < imageBW.Width; x++)
+                    {
+                        int tt = (imageBW.GetPixel(x, y).R + imageBW.GetPixel(x, y).G + imageBW.GetPixel(x, y).B) / 3;
+                        imageBW.SetPixel(x, y, Color.FromArgb(tt, tt, tt));
+                    }
                 pictureBoxImage.Image = imageBW;
             }
         }
@@ -86,17 +96,17 @@ namespace stereogram
             if (background != null && imageBW != null)
             {
                 Bitmap result = (Bitmap)background.Clone();
-                int[,] depths = new int[1280, 720];
-                for (int y = 0; y < 720; y++)
-                    for (int x = 0; x < 1280; x++)
-                        depths[x, y] = (imageBW.GetPixel(x, y).R + imageBW.GetPixel(x, y).G + imageBW.GetPixel(x, y).B) / 24;
+                int[,] depths = new int[imageBW.Width, imageBW.Height];
+                for (int y = 0; y < imageBW.Height; y++)
+                    for (int x = 0; x < imageBW.Width; x++)
+                        depths[x, y] = imageBW.GetPixel(x, y).R * CycleWidth / 255 / 6;
 
-                for (int y = 0; y < 720; y++)
-                    for (int x = 0; x < 1280; x++)
-                        if (depths[x, y] > 0 && x + depths[x, y] < 1280)
+                for (int y = 0; y < Height; y++)
+                    for (int x = CycleWidth; x < Width; x++)
+                        if (depths[x - CycleWidth, y] > 0 && x + depths[x - CycleWidth, y] < Width)
                         {
-                            Color c = result.GetPixel(x + depths[x, y], y);
-                            for (int i = x; i < 1280; i += 128)
+                            Color c = result.GetPixel(x + depths[x - CycleWidth, y], y);
+                            for (int i = x; i < Width; i += CycleWidth)
                                 result.SetPixel(i, y, c);
                         }
 
@@ -106,7 +116,7 @@ namespace stereogram
         }
         private void pictureBoxBackground_Click(object sender, EventArgs e)
         {
-            if(background != null)
+            if (background != null)
             {
                 FormImage form = new FormImage(background);
                 form.Show();
@@ -119,6 +129,11 @@ namespace stereogram
                 FormImage form = new FormImage(imageBW);
                 form.Show();
             }
+        }
+        private void buttonSettings_Click(object sender, EventArgs e)
+        {
+            FormSettings form = new FormSettings(this);
+            form.ShowDialog();
         }
     }
 }
