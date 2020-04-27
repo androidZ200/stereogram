@@ -38,6 +38,7 @@ namespace stereogram
         public FormDraw(FormMain form)
         {
             InitializeComponent();
+            pictureBox.MouseWheel += PictureBox_MouseWheel;
             this.form = form;
             image = new Bitmap(form.Width - form.CycleWidth, form.Height);
             g = Graphics.FromImage(image);
@@ -85,6 +86,14 @@ namespace stereogram
         {
             g.Clear(Color.Black);
             pictureBox.Image = image;
+        }
+        private void PictureBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if(e.Delta > 0 && trackBarDepth.Value < trackBarDepth.Maximum)
+                trackBarDepth.Value++;
+            else if (trackBarDepth.Value > trackBarDepth.Minimum)
+                trackBarDepth.Value--;
+            trackBarDepth_Scroll(sender, e);
         }
     }
 }
